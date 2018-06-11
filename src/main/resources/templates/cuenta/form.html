@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				<h4 class="card-title">
+					<a class="btn btn-light btn-xs"
+						th:href="@{'/ver/' + ${cuenta.cliente.id}}"
+						th:text="'&laquo; volver'"></a>
+				</h4>
+
+				<form th:action="@{/cuenta/form/}" th:object="${cuenta}"
+					method="post">
+
+					<div class="form-group row">
+						<label for="cliente" class="col-sm-2 col-form-label"
+							th:text="'Cliente'"></label>
+						<div class="col-sm-6">
+							<input name="cliente"
+								th:value="${cuenta.cliente.nombre} + ' ' + ${cuenta.cliente.apellido}"
+								class="form-control" disabled='disabled' />
+						</div>
+						<div class="d-none"><input type="hidden" value="{bancoId}"
+							name="banco_id" /></div>
+					</div>
+					<div class="form-group row">
+						<label for="createAt" class="col-sm-2 col-form-label">Fecha</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" th:field="*{createAt}"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="buscar_banco" class="col-sm-2 col-form-label"
+							th:text="'Buscar banco'"></label>
+						<div class="col-sm-6">
+							<input type="text" name="buscar_banco" id="buscar_banco"
+								class="form-control" />
+						</div>
+					</div>
+
+					<table id="cargarBanco"
+						class="table table-sm table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Nombre</th>
+								<th>Ruc</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="submit" th:value="${titulo}"
+								class="btn btn-secondary" />
+						</div>
+					</div>
+				</form>
+
+
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

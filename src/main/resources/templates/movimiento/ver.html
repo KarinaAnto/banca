@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+
+				<h4 class="card-title">
+					<a th:href="@{'/ver/' + ${movimiento.cuenta.id}}"
+						class="btn btn-light btn-xs">&laquo; volver</a>
+				</h4>
+
+				<ul class="list-group my-2">
+					<li class="list-group-item list-group-item-primary"
+						th:text="'Datos de la cuenta'"></li>
+					<li class="list-group-item" th:text="${movimiento.cuenta.cliente.nombre}"></li>
+					<li class="list-group-item" th:text="'Banco: ' + ${movimiento.cuenta.banco.nombre}"></li>
+					<li class="list-group-item" th:text="${movimiento.cuenta.numero}"></li>
+				</ul>
+
+				<ul class="list-group my-2">
+					<li class="list-group-item list-group-item-success"
+						th:text="'Datos del movimiento'"></li>
+					<li class="list-group-item" th:text="'Movimiento: ' + ${movimiento.id}"></li>
+					<li class="list-group-item"
+						th:text="'Numero: ' + ${cuenta.tipo}"></li>
+					<li class="list-group-item"
+						th:text="'Saldo: ' + ${cuenta.monto}"></li>
+					<li class="list-group-item"
+						th:text="'Fecha: ' + ${cuenta.createAt}"></li>
+				</ul>
+				
+
+				<a th:href="@{'/ver/' + ${movimiento.cuenta.id}}"
+					class="btn btn-light btn-xs">&laquo; volver</a>
+
+			</div>
+		</div>
+
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

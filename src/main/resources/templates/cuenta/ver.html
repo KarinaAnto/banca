@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+
+				<h4 class="card-title">
+					<a th:href="@{'/ver/' + ${cuenta.cliente.id}}"
+						class="btn btn-light btn-xs">&laquo; volver</a>
+				</h4>
+
+				<ul class="list-group my-2">
+					<li class="list-group-item list-group-item-primary"
+						th:text="'Datos del cliente'"></li>
+					<li class="list-group-item" th:text="${cuenta.cliente.nombre}"></li>
+					<li class="list-group-item" th:text="${cuenta.cliente.apellido}"></li>
+					<li class="list-group-item" th:text="${cuenta.cliente.email}"></li>
+				</ul>
+
+				<ul class="list-group my-2">
+					<li class="list-group-item list-group-item-success"
+						th:text="'Datos de la cuenta'"></li>
+					<li class="list-group-item" th:text="'Cuenta: ' + ${cuenta.id}"></li>
+					<li class="list-group-item"
+						th:text="'Numero: ' + ${cuenta.numero}"></li>
+					<li class="list-group-item"
+						th:text="'Saldo: ' + ${cuenta.saldoBase}"></li>
+					<li class="list-group-item"
+						th:text="'Fecha: ' + ${cuenta.createAt}"></li>
+					<li class="list-group-item"
+						th:text="'Banco: ' + ${cuenta.banco.nombre}"></li>
+				</ul>
+				<div class="alert alert-info my-4"
+					th:if="${#lists.isEmpty(cuenta.movimientos)}"
+					th:text="'No hay movimientos en la factura' + ${cuenta.numero}"></div>
+					
+				<table th:if="${not #lists.isEmpty(cuenta.movimientos)}"
+					class="table table-bordered table-striped my-4">
+					<thead class="thead-inverse">
+						<tr>
+							<th>id</th>
+							<th>Movimiento</th>
+							<th>Tipo</th>
+							<th>Monto</th>
+							<th>fecha</th>
+							<th>ver</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="movimiento: ${cuenta.movimientos}">
+							<td th:text="${movimiento.id}"></td>
+							<td th:text="${cuenta.tipo}"></td>
+							<td th:text="${cuenta.monto}"></td>
+							<td th:text="${cuenta.createAt}"></td>
+							<td><a class="btn btn-primary btn-xs"
+								th:href="@{'/movimiento/ver/' + ${movimiento.id}}" th:text="'detalle'"></a></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+				<a th:href="@{'/ver/' + ${cuenta.cliente.id}}"
+					class="btn btn-light btn-xs">&laquo; volver</a>
+
+			</div>
+		</div>
+
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
